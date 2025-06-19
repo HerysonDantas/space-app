@@ -134,7 +134,7 @@ const App = () => {
           <ConteudoGaleria>
             <Banner
               texto="A galeria mais completa de fotos do espaço!"
-              backgroundImage={"src/assets/banner.png"}
+              backgroundImage={"/imagens/banner.png"}
             />
             <Galeria
               aoFotoSelecionada={(foto) => setFotoSelecionada(foto)}
@@ -155,7 +155,7 @@ const App = () => {
           <BotaoIcone>
             <a href="https://www.facebook.com/heryson.cirilo">
               <img
-                src="../public/imagens/sociais/facebook.svg"
+                src="/imagens/sociais/facebook.svg"
                 alt="Icone do Facebook"
               />
             </a>
@@ -163,7 +163,7 @@ const App = () => {
           <BotaoIcone>
             <a href="https://x.com/Heryson_cirilo">
               <img
-                src="../public/imagens/sociais/twitter.svg"
+                src="/imagens/sociais/twitter.svg"
                 alt="Icone do Twitter"
               />
             </a>
@@ -171,7 +171,7 @@ const App = () => {
           <BotaoIcone>
             <a href="https://instagram.com/herysoncirilo">
               <img
-                src="../public/imagens/sociais/Instagram.svg"
+                src="/imagens/sociais/Instagram.svg"
                 alt="Icone do Instagram"
               />
             </a>
