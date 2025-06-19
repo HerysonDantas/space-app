@@ -171,7 +171,7 @@ const App = () => {
           <BotaoIcone>
             <a href="https://instagram.com/herysoncirilo">
               <img
-                src="/imagens/sociais/Instagram.svg"
+                src="/imagens/sociais/instagram.svg"
                 alt="Icone do Instagram"
               />
             </a>
