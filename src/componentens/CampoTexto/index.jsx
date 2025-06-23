@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import search from "./search.png";
-import { Children } from "react";
-import Tags from "../Galeria/Tags";
+
 const ContainerEstilizado = styled.div`
   position: relative;
   display: inline-block;
@@ -29,10 +28,10 @@ const IconeLupa = styled.img`
   height: 38px;
 `;
 
-const CampoTexto = ({props, aoPesquisar}) => {
+const CampoTexto = ({aoPesquisar}) => {
   return (
     <ContainerEstilizado>
-      <CampoTextoEstilizado placeholder="O que você procura?" {...props} onChange={(event)=>aoPesquisar(event.target.value)}/>
+      <CampoTextoEstilizado onChange={(evento) => {aoPesquisar(evento.target.value) }} type="text" placeholder="O que você procura?"/>
       <IconeLupa src={search} alt="Ícone de lupa" />
     </ContainerEstilizado>
   );

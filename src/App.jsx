@@ -5,9 +5,8 @@ import BarraLateral from "./componentens/BarraLateral";
 import Banner from "./componentens/Banner";
 import Galeria from "./componentens/Galeria";
 import fotos from "./fotos.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalZoom from "./componentens/ModalZoom";
-import BotaoIcone from "./componentens/BotaoIcone";
 
 const FundoGradiente = styled.div`
   background: linear-gradient(
@@ -38,97 +37,67 @@ const ConteudoGaleria = styled.section`
 `;
 
 const FooterEstilizado = styled.footer`
-  display: flex;
-  justify-content: space-between;
-  align-items:center;
-  height:80px;
-  margin-top: 70px;
-  background: linear-gradient(
-    174.61deg,
-    #041833 4.16%,
-    #04244f 48%,
-    #154580 96.76%
-  );
-
-  p{
-    color:#ffffff;
-    font-size:20px;
-    margin-right:23px;
-  }
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+    background-color: #04244F;
+    padding: 22px;
+    box-sizing: border-box;
 `;
 const IconesContainer = styled.div`
-  display: flex;
-  align-items:center;
-  justify-content: space-between;
   margin: 0;
-  flex-direction: row;
-  gap: 24px;
+    padding: 0;
+    list-style: none;
+    li {
+        display: inline-block;
+        margin-right: 32px;
+    }
+`;
+
+const RodapeTexto = styled.p`
+    font-size: 16px;
+    color: white;
+    margin: 0;
 `;
 const App = () => {
-  const [fotosDaGaleriaOriginal, setFotosDaGaleriaOriginal] = useState(fotos);
+  
   const [fotosDaGaleria, setFotosDaGaleria] = useState(fotos);
   const [fotoSelecionada, setFotoSelecionada] = useState(null);
+  const [filtro, setFiltro] = useState("");
+  const [tag, setTag] = useState(0);
 
-  const aoPesquisar = (conteudoPesquisa) => {
-    if (!conteudoPesquisa) {
-      return setFotosDaGaleria(fotosDaGaleriaOriginal);
-    }
+  useEffect(() => {
+    const fotosFiltradas = fotos.filter((foto) => {
+      const filtroPorTag = !tag || foto.tagId === tag;
+      const filtroPorTitulo =
+        !filtro || foto.titulo.toLowerCase().includes(filtro.toLowerCase());
+      return filtroPorTag && filtroPorTitulo;
+    });
+    setFotosDaGaleria(fotosFiltradas);
+  }, [filtro, tag]);
 
-    setFotosDaGaleria(
-      fotosDaGaleriaOriginal.filter((foto) =>
-        foto.titulo.includes(conteudoPesquisa)
-      )
-    );
-  };
-
-  const aoFiltrar = (tagSelecionada) => {
-    if (!tagSelecionada || tagSelecionada === 0) {
-      return setFotosDaGaleria(fotosDaGaleriaOriginal);
-    }
-
-    setFotosDaGaleria(
-      fotosDaGaleriaOriginal.filter((foto) => foto.tagId === tagSelecionada)
-    );
-  };
-
-  const aoAlternarFavorito = (foto) => {
+const aoAlternarFavorito = (foto) => {
     if (foto.id === fotoSelecionada?.id) {
       setFotoSelecionada({
         ...fotoSelecionada,
-        favorita: !fotoSelecionada.favorita,
-      });
+        favorita: !fotoSelecionada.favorita
+      })
     }
-
-    setFotosDaGaleriaOriginal(
-      fotosDaGaleriaOriginal.map((fotoDaGaleria) => {
-        return {
-          ...fotoDaGaleria,
-          favorita:
-            fotoDaGaleria.id === foto.id
-              ? !foto.favorita
-              : fotoDaGaleria.favorita,
-        };
-      })
-    );
-
-    setFotosDaGaleria(
-      fotosDaGaleria.map((fotoDaGaleria) => {
-        return {
-          ...fotoDaGaleria,
-          favorita:
-            fotoDaGaleria.id === foto.id
-              ? !foto.favorita
-              : fotoDaGaleria.favorita,
-        };
-      })
-    );
-  };
+    setFotosDaGaleria(fotosDaGaleria.map(fotoDaGaleria => {
+      return {
+        ...fotoDaGaleria,
+        favorita: fotoDaGaleria.id === foto.id ? !foto.favorita : fotoDaGaleria.favorita
+      }
+    }))
+  }
 
   return (
     <FundoGradiente>
       <EstilosGlobais />
       <AppContainer>
-        <Cabecalho aoPesquisar={aoPesquisar} />
+        <Cabecalho filtro={filtro} setFiltro={setFiltro}/>
         <MainContainer>
           <BarraLateral />
           <ConteudoGaleria>
@@ -139,7 +108,7 @@ const App = () => {
             <Galeria
               aoFotoSelecionada={(foto) => setFotoSelecionada(foto)}
               aoAlternarFavorito={aoAlternarFavorito}
-              aoFiltrar={aoFiltrar}
+              setTag={setTag}
               fotos={fotosDaGaleria}
             />
           </ConteudoGaleria>
@@ -152,33 +121,30 @@ const App = () => {
       />
       <FooterEstilizado>
         <IconesContainer>
-          <BotaoIcone>
+          <li>
             <a href="https://www.facebook.com/heryson.cirilo">
               <img
                 src="/imagens/sociais/facebook.svg"
                 alt="Icone do Facebook"
               />
             </a>
-          </BotaoIcone>
-          <BotaoIcone>
+          </li>
+          <li>
             <a href="https://x.com/Heryson_cirilo">
-              <img
-                src="/imagens/sociais/twitter.svg"
-                alt="Icone do Twitter"
-              />
+              <img src="/imagens/sociais/twitter.svg" alt="Icone do Twitter" />
             </a>
-          </BotaoIcone>
-          <BotaoIcone>
+          </li>
+          <li>
             <a href="https://instagram.com/herysoncirilo">
               <img
                 src="/imagens/sociais/instagram.svg"
                 alt="Icone do Instagram"
               />
             </a>
-          </BotaoIcone>
+          </li>
         </IconesContainer>
 
-        <p>Desenvolvido por Heryson Dantas</p>
+        <RodapeTexto>Desenvolvido por Heryson Dantas</RodapeTexto>
       </FooterEstilizado>
     </FundoGradiente>
   );

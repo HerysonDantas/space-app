@@ -10,11 +10,11 @@ img{
     max-width: 212px;
 }
 `
-const Cabecalho =({aoPesquisar})=>{
+const Cabecalho =({setFiltro})=>{
     return (
         <HeaderEstilizado>
             <img src="/imagens/logo.png" alt="Logo Space App" />
-            <CampoTexto aoPesquisar={aoPesquisar}/>
+            <CampoTexto aoPesquisar={setFiltro}/>
         </HeaderEstilizado>
     )
 }

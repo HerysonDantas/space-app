@@ -37,7 +37,7 @@ const ParagrafoTagsEstilizado = styled.h3`
 
 `;
 
-const Tags = ({aoFiltrar}) => {
+const Tags = ({setTag}) => {
     
     return (
         <TagsContainer>
@@ -45,7 +45,7 @@ const Tags = ({aoFiltrar}) => {
             <TagsBotoesContainer>
                 {tags.map((tag) => (
                     
-                    <BotaoEstilizado key={tag.id} onClick={()=>aoFiltrar(tag.id)}>{tag.titulo}</BotaoEstilizado>
+                    <BotaoEstilizado key={tag.id} onClick={() => setTag(tag.tag)}>{tag.titulo}</BotaoEstilizado>
                 ))}
             </TagsBotoesContainer>
 
